@@ -1,0 +1,40 @@
+.searchBarAndSort {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 1rem; 
+    margin-bottom: 0.2rem;
+    padding: 1px;
+    width: 300px; 
+    background-color: var(--color-quaternary); 
+    border-radius: 10px; 
+}
+
+.searchBar {
+    border-radius: 10px; 
+    border: none; 
+    margin-top: 3px; 
+    margin-bottom: 3px; 
+    padding: 5px; 
+    width: 200px; 
+}
+
+.searchIcon {
+    padding: 0.5rem 0rem 0.2rem 0.2rem;
+    background-color: var(--color-quaternary);
+    border: none; 
+    border-radius: 15px;
+}
+
+.btnSecondary {
+    padding: 0.4rem 0.1rem 0.1rem 0.1rem;
+    margin: 3px; 
+    background-color: var(--color-quaternary);
+    border: solid white 1px; 
+    border-radius: 10px;
+}
+
+.btnSecondary:hover {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
+    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}

@@ -1,0 +1,42 @@
+.totalBtn {
+    font-size: 11px;
+}
+
+.totalInput {
+    width: 80px;
+}
+
+.discountsContainer {
+    padding: 10px; 
+}
+
+.discount {
+    font-size: small;
+    max-width: 150px ;
+    padding: 5px; 
+    margin: 0; 
+    color: grey;
+    background-color: lightgrey;
+}
+
+.discount:hover {
+    color: rgb(65, 65, 65);
+    transition: all300ms ease;
+}
+
+.contBtn {
+    right: 0px; 
+    max-width: none;
+    background-color: white;
+    color: grey; 
+    border: none; 
+    width: 100%;
+    margin-top: 10px; 
+    font-size: larger;
+}
+
+.contBtn:hover {
+
+    color: black; 
+    transition: all300ms ease;
+}

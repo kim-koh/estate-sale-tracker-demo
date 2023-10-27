@@ -1,0 +1,10 @@
+:root {
+    --color-primary: #ECF2FF;
+    --color-secondary: #3E54AC;
+    --color-tertiary: #655DBB;
+    --color-quaternary: #BFACE2;
+
+    --color-primary-text: #393D47;
+
+    --primary-font: Courier, monospace; 
+}

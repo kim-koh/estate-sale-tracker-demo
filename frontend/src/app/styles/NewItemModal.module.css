@@ -1,0 +1,48 @@
+.container {
+    position: sticky; 
+    width: 20%;
+    min-width: 300px;
+    padding: 0.3rem;
+    margin: 1rem; 
+    top: 30%; 
+    left: 74%; 
+    background-color: white;
+    border: solid var(--color-tertiary) 5px;
+    height: 28rem;
+    border-radius: 1rem; 
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    overflow: scroll;
+    z-index: 99999;
+}
+
+.container > button {
+    position: relative;
+    left: 93%;
+    margin-top: 0px; 
+    margin-bottom: 0px; 
+    padding: 3px; 
+    min-width: 25px; 
+    border-radius: 50%; 
+    min-height: 25px; 
+    border: solid 1px var(--color-secondary);
+    color: var(--color-secondary);
+    background-color: white;
+}
+
+.container h3{
+    margin-top: 0px;
+    margin-bottom: 13px; 
+}
+
+.container input {
+    margin-bottom: 6px; 
+    padding: 3px; 
+}
+
+.container select {
+    padding: 3px;
+}
+
+.container textarea {
+    padding: 3px; 
+}

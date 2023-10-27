@@ -1,0 +1,63 @@
+.card {
+    position: static; 
+    border-radius: 0.5rem;
+    border: solid var(--color-primary-light);
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 2fr 0.2fr;
+    gap: 1rem; 
+    justify-content: space-between;
+}
+
+.primaryInfo {
+    color: black;
+    padding-left: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+.secondaryInfo {
+    color: black;
+    padding-right: 0.5rem;
+    align-items: right;
+}
+
+.table {
+    border: var(--color-quaternary) 2px solid;
+    margin-top: 10px; 
+    margin-bottom: 10px; 
+    width: 100%; 
+}
+
+.table td{
+    border: var(--color-quaternary) 2px solid;
+}
+
+.quant {
+    text-align: center;
+}
+
+.tertiaryInfo {
+    color: black;
+    padding-right: 1rem;
+    align-items: right;
+}
+
+.edit{
+    display: flex; 
+    flex-direction: column; 
+    justify-content: flex-end;
+}
+
+.btnSecondary {
+    padding: 0.3rem 0.4rem 0.2rem 0.4rem;
+    margin: 0.1rem; 
+    margin-right: 0.4rem; 
+}
+
+.lowerBtn {
+    margin-bottom: 0.5rem; 
+}
