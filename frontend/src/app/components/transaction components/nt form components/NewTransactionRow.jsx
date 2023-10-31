@@ -52,10 +52,10 @@ function NewTransactionRow(props) {
     function setRowValue(selected) {
         setItemID(selected._id);
         setName(selected.code + ' ' + selected.name);
-        setPrice(parseFloat(selected.stickerPrice.$numberDecimal));
+        setPrice(parseFloat(selected.stickerPrice));
         setFilter(''); 
         props.updatePurchaseInfo(props.index, 'name', selected.code + ' ' + selected.name, selected._id)
-        props.updatePurchaseInfo(props.index, 'price', selected.stickerPrice.$numberDecimal, selected._id)
+        props.updatePurchaseInfo(props.index, 'price', selected.stickerPrice, selected._id)
     }
 
     return(

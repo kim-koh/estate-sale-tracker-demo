@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 
 import styles from "../../styles/Form.module.css"
 import { useTransactionContext } from "../../hooks/useTransactionContext";
 import LineItemsInput from '../transaction components/nt form components/LineItemsInput'
 import { useNewItemModalContext } from "@/app/hooks/useNewItemModalContext";
+import { useInventoryContext } from "@/app/hooks/useInventoryContext";
 
 function NewTransactionForm() {
     const [error, setError] = useState(null); 
+    const {inventory, dispatch} = useInventoryContext(); 
     const {transactionDispatch} = useTransactionContext(); 
     const {state, modalDispatch} = useNewItemModalContext(); 
     const {openModal, rowIndex, newItem} = state; 
@@ -23,29 +24,53 @@ function NewTransactionForm() {
         e.preventDefault();
         setError(null); 
 
+        //formatting PI
         if (purchaseInfo[purchaseInfo.length -1].itemID === '') {
             purchaseInfo.pop()
         }
+
+        //creating random _id
+        let ans = ''; 
+        const chars = '0123456789abcdefghijklmnopqrstuvwxyz'
+        for (let i = 24; i >0; i--) {
+            ans +=
+                chars[(Math.floor(Math.random() * chars.length))];
+        }
+
+        //createdAt date-time stamp
+        const date = new Date();
+
+        const newStockNums = [];                                              
+        purchaseInfo.forEach(lineItem => {
+            const id = lineItem.itemID
+
+            const foundItem = inventory.find(item => item._id === lineItem.itemID);
+            const existingStock = foundItem.stock
+
+            const qtyBought = lineItem.quantity
+
+            const newStock = existingStock - qtyBought
+
+            newStockNums.push({id, newStock});
+        })
+        
         const newTransaction = {
+            "_id": ans,
             "purchaseInfo": [...purchaseInfo],
             "totalPrice": totalPrice,  
             "formOfPayment": paymentForm,
+            "createdAt": String(date)
         }
 
-        await axios.post("/api/transaction", newTransaction)
-            .then ((response) => {
-                setSubmitted(true);
-                setPurchaseInfo([]);
-                setTotalPrice(0);
-                setPaymentForm('Cash');
-                setItemsFinalized(false)
-                transactionDispatch({type: 'CREATE_NEW_TRANSACTION', payload: response.data});
-                modalDispatch({type: 'RESET_MODAL'})
-            })
-            .catch((error) => {
-                const errMessage = error.response;
-                setError(errMessage.error);  
-            })
+        transactionDispatch({type: 'CREATE_NEW_TRANSACTION', payload: newTransaction});
+        dispatch({type: 'UPDATE_STOCK', payload: newStockNums})
+        modalDispatch({type: 'RESET_MODAL'})
+
+        setSubmitted(true);
+        setPurchaseInfo([]);
+        setTotalPrice(0);
+        setPaymentForm('Cash');
+        setItemsFinalized(false)
 
     };
 
@@ -88,7 +113,6 @@ function NewTransactionForm() {
 
     function calculateTotalPrice() {
         let total = 0; 
-        console.log(purchaseInfo)
         purchaseInfo.forEach(lineItem => {
             total = total + parseInt(lineItem.quantity)*parseFloat(lineItem.price); 
         })

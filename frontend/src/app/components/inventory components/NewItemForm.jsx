@@ -1,25 +1,29 @@
 'use client'
 import { useState } from "react";
-import axios from "axios";
 
 import styles from '../../styles/Form.module.css'
 import { useInventoryContext } from "../../hooks/useInventoryContext";
 import { useNewItemModalContext } from "../../hooks/useNewItemModalContext";
-
+import { addCategory, categories } from '../../demoData';
 
 function NewItemForm() {
     const {inventory, dispatch} = useInventoryContext();
     const { modalDispatch} = useNewItemModalContext(); 
     const [error, setError] = useState(null); 
+
+    const [types, setTypes] = useState([...categories])
     
     const [code, setCode] = useState('');
     const [type, setType] = useState('Misc.');
     const [name, setName] = useState(''); 
+    const [owner, setOwner] = useState(''); 
     const [description, setDescription] = useState(''); 
     const [price, setPrice] = useState(0);
     const [stock, setStock] = useState(1);
     const productOwner = "Anson"; 
     //onHold = null, transaction = null;
+
+    const [newCategoryOpen, setNewCategoryOpen] = useState(false); 
 
     function capitalizeFirst(word) {
         return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
@@ -28,31 +32,35 @@ function NewItemForm() {
     async function handleSubmit(e) {
         e.preventDefault();
         setError(null); 
+
+        let ans = ''; 
+        const chars = '0123456789abcdefghijklmnopqrstuvwxyz'
+        for (let i = 24; i >0; i--) {
+            ans +=
+                chars[(Math.floor(Math.random() * chars.length))];
+        }
+
         const newItem = {
+            "_id": ans, 
             "code": code.toUpperCase().trim(),
             "type": capitalizeFirst(type), 
             "name": name, 
             "description": description, 
             "stickerPrice": price, 
             "stock": stock, 
-            "productOwner": productOwner, 
+            "productOwner": productOwner,
+            "saleStatus":"Available", 
         }
-
-        await axios.post("/api/inventory", newItem)
-            .then ((response) => {
-                setCode('');
-                setType('Misc.'); 
-                setName('');
-                setDescription('');
-                setPrice(0);
-                setStock(1);
-                dispatch({type: 'CREATE_NEW_ITEM', payload: response})
-                modalDispatch({type: 'CLOSE_MODAL', payload: response.data})
-            })
-            .catch((error) => {
-                const errMessage = error.response.data;
-                setError(errMessage.error);  
-            })
+                
+        dispatch({type: 'CREATE_NEW_ITEM', payload: newItem})
+        modalDispatch({type: 'CLOSE_MODAL', payload: newItem})
+        
+        setCode('');
+        setType('Misc.'); 
+        setName('');
+        setDescription('');
+        setPrice(0);
+        setStock(1);
     };
 
     function generateCode(type) {
@@ -77,6 +85,28 @@ function NewItemForm() {
     }
 
     return(
+            <div>
+
+            <div className={styles.newCategoryContainer}>
+                {newCategoryOpen && 
+                <form 
+                    className={styles.newCategoryForm}
+                    onSubmit={(e) => {
+                        e.preventDefault
+                        setTypes(prevState => {
+                            const newTypes = [...prevState]
+                            newTypes.push(e.target[0].value); 
+                            return newTypes; 
+                        })
+                    }}
+                >
+                    <input type="text"/>
+                    <button>+</button>
+                </form>    
+            }
+            </div>
+            
+
             <form className={styles.createNew} onSubmit={handleSubmit}>
                 <h3>Add New Item</h3>
 
@@ -84,16 +114,20 @@ function NewItemForm() {
                     <label>Category:</label>
                     <select name="types" id="types" required
                         onChange={(e) => {
-                            setType(e.target.value); 
+                            if (e.target.value === "Add") {
+                                setNewCategoryOpen(true)
+                            } else {
+                                setType(e.target.value)
+                            }
+                            ; 
                         }}
                         value={type}
                         className={styles.formInput}>
-                        <option value="Misc.">Miscellaneous</option>
-                        <option value="Kitchen">Kitchen</option>
-                        <option value="Electronics">Electronics</option>
-                        <option value="Furniture">Furniture</option>
-                        <option value="Entertainment">Entertainment</option>
-                        <option value="Online Sale">Online Sale</option>
+                            {console.log(types)}; 
+                        {types.map(type => {
+                            return(<option key={type} value={type}>{type}</option>)
+                        })}
+                        <option value="Add">+ Add Category TODO: GET THIS FUNCTIONING</option>
                     </select>  
                 </div>
 
@@ -170,6 +204,8 @@ function NewItemForm() {
                 <button className={`btn ${styles.completeBtn}`}>Create</button>
                 {error && <div className={styles.error}>Error: {error}</div>}
             </form>
+            
+            </div>
     )
     
 }

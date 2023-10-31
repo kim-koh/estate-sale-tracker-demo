@@ -18,7 +18,7 @@ export function newItemModalReducer(prevState, action) {
                     id: action.payload._id,
                     code: action.payload.code,
                     name: action.payload.name,
-                    price: action.payload.stickerPrice.$numberDecimal
+                    price: action.payload.stickerPrice
                 }
             }
             return {

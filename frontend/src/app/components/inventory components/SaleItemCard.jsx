@@ -1,5 +1,3 @@
-import axios from "axios";
-
 import styles from "../../styles/Card.module.css";
 import Image from "next/image";
 import editIcon from '../../public/icons8-edit-24 (1).png';
@@ -19,14 +17,7 @@ function SaleItem({item}) {
         const shouldDelete = confirm("Are you sure you want to delete this item?")
 
         if (shouldDelete) {
-            axios.delete(`/api/inventory/${item.code}`)
-                .then(response => {
-                    console.log(`Deleted ${item.code} ${item.name} from inventory.`)
-                    dispatch({type: 'DELETE_ITEM', payload: item});
-                })
-                .catch(error => {
-                    console.log(error)
-                })
+            dispatch({type: 'DELETE_ITEM', payload: item});
         }
     }
 
@@ -46,7 +37,7 @@ function SaleItem({item}) {
                 <p>Category: {item.type}</p>
                 <p style={{color: item.saleStatus === "Available"? "green": "red"}}>Status: {item.saleStatus}</p>
                 {item.onHold != null ? <p>item.onHold</p>: null}
-                <p>{item.stock} units | ${item.stickerPrice.$numberDecimal}</p>
+                <p>{item.stock} units | ${item.stickerPrice}</p>
             </div>
 
             <div className={styles.tertiaryInfo}>

@@ -1,5 +1,6 @@
 'use client'
 import {createContext, useReducer} from 'react';
+import {demoInventory} from '../demoData'
 
 export const InventoryContext = createContext(null);
 
@@ -26,7 +27,7 @@ export function inventoryReducer(prevState, action) {
             })
             return {inventory: sortedInventory};
         case 'CREATE_NEW_ITEM':
-            return {inventory:[action.payload.data, ...prevState.inventory]};
+            return {inventory:[action.payload, ...prevState.inventory]};
         case 'EDIT_ITEM':
             const updateInventory = [...prevState.inventory];
             const searchIndex = [...updateInventory].findIndex((item) => item.code === action.payload.code);
@@ -53,7 +54,7 @@ export function inventoryReducer(prevState, action) {
 
 export function InventoryContextProvider({children}) {
     const [state, dispatch] = useReducer(inventoryReducer, {
-        inventory: []
+        inventory: [...demoInventory]
     });
 
     return(

@@ -1,5 +1,4 @@
 'use client'
-import axios from "axios"; 
 import { useState, useEffect } from "react";
 
 import Styles from "../../styles/EditItemModal.module.css"
@@ -16,7 +15,7 @@ function EditItemModal() {
     const [type, setType] = useState(item.type);
     const [name, setName] = useState(item.name); 
     const [description, setDescription] = useState(item.description); 
-    const [price, setPrice] = useState(item.stickerPrice.$numberDecimal);
+    const [price, setPrice] = useState(item.stickerPrice);
     const [stock, setStock] = useState(item.stock);
     const [error, setError] = useState(null); 
 
@@ -24,7 +23,7 @@ function EditItemModal() {
         setType(item.type);
         setName(item.name); 
         setDescription(item.description);
-        setPrice(item.stickerPrice.$numberDecimal); 
+        setPrice(item.stickerPrice); 
         setStock(item.stock); 
     }, [item])
 
@@ -43,17 +42,8 @@ function EditItemModal() {
             "stickerPrice": price, 
             "stock": stock, 
         }
-
-        await axios.patch(`/api/inventory/${item.code}`, newInfo)
-            .then ((response) => {
-                const newItem = response.data;
-                dispatch({type: 'EDIT_ITEM', payload: newItem});
-                modalDispatch({type: 'CLOSE_MODAL'});
-            })
-            .catch((err) => {
-                const errMessage = err.response.data;
-                setError(errMessage.error);  
-            })
+        dispatch({type: 'EDIT_ITEM', payload: newInfo});
+        modalDispatch({type: 'CLOSE_MODAL'});     
     }
     
     if (!openModal) {
@@ -77,7 +67,6 @@ function EditItemModal() {
                                 <option value="Electronics">Electronics</option>
                                 <option value="Furniture">Furniture</option>
                                 <option value="Entertainment">Entertainment</option>
-                                <option value="Online Sale">Online Sale</option>
                             </select>  
                         </div>
                         

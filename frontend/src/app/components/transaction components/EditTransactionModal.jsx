@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import axios from "axios"; 
 
 import styles from '../../styles/EditItemModal.module.css'
 import formStyles from '../../styles/Form.module.css'
@@ -83,12 +82,6 @@ function EditTransactionModal() {
     async function handleSave(e) {
         e.preventDefault(); 
         setError(null); 
-
-        //format purchase info
-        const formattedPI = purchaseInfo.map(lineItem => ({
-            ...lineItem, 
-            price: {$numberDecimal: String(lineItem.price)}
-        }));
         
         //calculate total 
         let total = 0; 
@@ -114,26 +107,21 @@ function EditTransactionModal() {
             newStockNums.push({id, newStock});
         })
 
+        console.log(transactionData)
         const body = {
             "newInfo": {
-                "purchaseInfo": formattedPI,
-                "totalPrice": {$numberDecimal: String(total)},
+                "_id": transactionData._id,
+                "purchaseInfo": purchaseInfo,
+                "totalPrice": total,
                 "formOfPayment": paymentForm,
             },
             "stockInfo": newStockNums
         }
 
-        await axios.patch(`/api/transaction/${transactionData._id}`, body)
-            .then((response) => {
-                const updatedTransaction = response.data
-                transactionDispatch({type: 'EDIT_TRANSACTION', payload: updatedTransaction})
-                dispatch({type: 'UPDATE_STOCK', payload: newStockNums})
-                ETModalDispatch({type: 'CLOSE_MODAL'})
-            })
-            .catch(err => {
-                console.log(err); 
-                setError(err);
-            })
+
+            transactionDispatch({type: 'EDIT_TRANSACTION', payload: body.newInfo})
+            dispatch({type: 'UPDATE_STOCK', payload: newStockNums})
+            ETModalDispatch({type: 'CLOSE_MODAL'})
     }
 
 

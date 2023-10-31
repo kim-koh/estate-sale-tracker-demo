@@ -1,5 +1,4 @@
 'use client'
-import axios from "axios";
 import { useEffect, useState } from "react";
 
 import {useInventoryContext} from "../hooks/useInventoryContext.jsx";
@@ -15,8 +14,6 @@ import CardsContainer from '../components/main/CardsContainer.jsx';
 import Form from '../components/main/Form.jsx'
 import { useNewItemModalContext } from "../hooks/useNewItemModalContext.jsx";
 
-axios.defaults.baseURL = `https://estate-sale-tracker-server.vercel.app`
-//axios.defaults.baseURL = 'http://localhost:4000'
 
 function Dashboard() {
     const {inventory, dispatch} = useInventoryContext();
@@ -25,29 +22,7 @@ function Dashboard() {
     const [searchTerm, setSearchTerm] = useState(''); 
     const [view, setView] = useState('inventory')
     let inventoryToDisplay = []; 
-
-    //initial GET req for inventory, transactions, and holds
-    useEffect(() => {
-            async function getData() {
-                //get inventory
-                const res = await axios.get("/api/inventory"); 
-                if (!res) {
-                    throw new Error("Failed to fetch inventory data");
-                } else {
-                    dispatch({type: 'SET_INVENTORY', payload: res.data});
-                }
-                //get transactions
-                const res2 = await axios.get("./api/transaction");
-                if (!res2) {
-                    throw new Error("Failed to fetch transaction data");
-                } else {
-                    transactionDispatch({type: 'SET_TRANSACTIONS', payload: res2.data});
-                }
-                //get holds
-                //TODO: INSERT INITIAL GET REQUEST FOR HOLDS HERE
-            }
-            getData();
-        }, [])
+    
     //search feature
     function searchIsValidType() {
         let validType = false;

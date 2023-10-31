@@ -34,6 +34,35 @@
     background-color: white;
 }
 
+.newCategoryContainer {
+    position: absolute;
+}
+
+.newCategoryForm {
+    background-color: var(--color-secondary);
+    position: relative;
+    top: 55px; 
+    left: 35%; 
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.newCategoryForm input {
+    padding: 5px;
+    margin: 10px; 
+    width: 10rem;  
+    border: 1px solid var(--color-quaternary);
+    border-radius:4px;
+    box-sizing: border-box
+}
+
+.newCategoryForm button {
+    background-color: var(--color-secondary);
+    border:none; 
+    padding-right: 15px;
+    color: white;
+}
+
 .codeInput {
     display: flex; 
     flex-direction: row;

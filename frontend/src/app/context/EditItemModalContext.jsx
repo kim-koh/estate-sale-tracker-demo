@@ -17,7 +17,7 @@ export function editItemModalReducer(prevState, action) {
                     type: '', 
                     name: '',
                     description: '', 
-                    stickerPrice: {$numberDecimal: "0"},
+                    stickerPrice: 0,
                     stock: 0
                 }
             }; 
@@ -33,7 +33,7 @@ export function EditItemModalContextProvider({children}) {
             type: '', 
             name: '',
             description: '', 
-            stickerPrice: {$numberDecimal: "0"},
+            stickerPrice: 0,
             stock: 0
         }
     })

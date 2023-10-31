@@ -1,15 +1,16 @@
-import Styles from "../../styles/SaleHeader.module.css"
+import styles from "../../styles/SaleHeader.module.css"
 
 function SaleHeader() {
     return(
-        <div className="header-container">
-            <div className='header-text'>
-                <h1>Cursed Estate Sale</h1>
-                <p className={Styles.info}><b>Where:</b></p>
-                <p className={Styles.info}>Blackwell Lane</p>
-                <p className={Styles.info}><b>When:</b></p>
-                <p className={Styles.info}> Saturday, October 7 9am-6pm </p>
-                <p className={Styles.info}>Sunday, October 15 9am - 6pm</p> 
+        <div className={styles.headerContainer}>
+            <div className={styles.headerText}>
+                <h1>[DEMO] Yard or Bake Sale</h1>
+                <p className={styles.info}><b>Where:</b></p>
+                <p className={styles.info}>123 Apple Lane</p>
+                <p className={styles.info}><b>When:</b></p>
+                <p className={styles.info}>Wednesday, June 5 8am-5pm </p>
+                <p className={styles.info}>Thursday, June 6 8am-5pm </p>
+                <p className={styles.info}>Friday, June 7 8am-4pm</p>
             </div>
         </div>
     )

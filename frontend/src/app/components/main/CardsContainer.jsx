@@ -13,12 +13,14 @@ function CardsContainer(props) {
     if (view === "inventory") {
         return(
             <div className="scroll cards-container">
-                {(inventory.length === 0 || !inventory) ? <p>loading...</p> : inventory.map((item) => (
-                    <SaleItem 
-                        key = {item._id}
-                        item = {item}
-                    />
-                ))}
+                {(inventory.length === 0 || !inventory) ? <p>loading...</p> : inventory.map((item) => {
+                    return(
+                        <SaleItem 
+                            key = {item._id}
+                            item = {item}
+                        />
+                    )
+                })}
             </div>    
         )     
     } else if (view === "transactions") {

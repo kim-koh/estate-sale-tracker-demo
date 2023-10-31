@@ -7,20 +7,6 @@ body {
     margin: 0;
 }
 
-.header-container {
-    background-color: var(--color-primary);
-    padding: 1px;
-    max-width: 16rem;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    height: 100vh;
-}
-
-.header-text {
-    color: var(--color-primary-text);
-    margin: 1.8rem;
-    font-family: var(--primary-font); 
-}
-
 h1 {
     font-size: 2.5rem;
 }
